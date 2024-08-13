@@ -1,4 +1,5 @@
 #include "LevelOne.h"
+#include "LevelTwo.h"
 
 LevelOne::LevelOne(sf::RenderWindow& window) :
 	view(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(VIEW_WIDTH, VIEW_HEIGHT)),
@@ -112,6 +113,11 @@ void LevelOne::HandleInput(sf::RenderWindow& window)
 
 			if (evnt.key.code == sf::Keyboard::P)
 				GameManager::getInstance().setIsGamePaused(true);
+
+			if (evnt.key.code == sf::Keyboard::N) {
+				std::shared_ptr<Scene> levelTwo = std::make_shared<LevelTwo>(window);
+				SceneManager::getInstance().ChangeScene(levelTwo);
+			}
 			/*if (evnt.key.code == sf::Keyboard::R)
 				Restart();*/
 				// printf("Clicked");
@@ -246,7 +252,7 @@ void LevelOne::Update(float deltaTime)
 		GameManager::getInstance().setIsGameOver(true);
 
 	// if (lever1->CheckCollision(playerCollider) && GameManager::getInstance().GetKeyPressed(sf::Keyboard::E))
-	if ((lever1->CheckCollision(playerCollider) && GameManager::getInstance().GetKeyPressed(sf::Keyboard::E)) || ((lever1->CheckCollision(player2Collider) && GameManager::getInstance().GetKeyPressed(sf::Keyboard::RShift))))
+	if ((lever1->CheckCollision(playerCollider) && GameManager::getInstance().GetKeyPressed(sf::Keyboard::S)) || ((lever1->CheckCollision(player2Collider) && GameManager::getInstance().GetKeyPressed(sf::Keyboard::Down))))
 	{
 		// printf("Touching Player");
 		lever1->switchLever();

@@ -1,15 +1,16 @@
 #include "SceneManager.h"
 #include "Scene.h"
 #include "LevelOne.h"
+#include "LevelTwo.h"
 #include "GameManager.h"
 
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(1920.0f, 1080.0f), "New WIndow", sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize);
 
-	SceneManager sceneManager;
-	std::shared_ptr<Scene> levelOne = std::make_shared<LevelOne>(window);
-	sceneManager.ChangeScene(levelOne);
+	//SceneManager sceneManager;
+	std::shared_ptr<Scene> levelOne = std::make_shared<LevelTwo>(window);
+	SceneManager::getInstance().ChangeScene(levelOne);
 
 	sf::Clock clock;
 
@@ -21,7 +22,7 @@ int main()
 		//     if (evnt.type == sf::Event::Closed)
 		//         window.close();
 		// }
-		sceneManager.HandleInput(window);
+		SceneManager::getInstance().HandleInput(window);
 
 		sf::Time elapsed = clock.restart();
 		float deltaTime = elapsed.asSeconds();
@@ -29,8 +30,8 @@ int main()
 		if (deltaTime > 1.0f / 20.0f)
 			deltaTime = 1.0f / 20.0f;
 		if (!GameManager::getInstance().getIsGameOver() && !GameManager::getInstance().getIsGamePaused())
-			sceneManager.Update(deltaTime);
-		sceneManager.Render(window);
+			SceneManager::getInstance().Update(deltaTime);
+		SceneManager::getInstance().Render(window);
 	}
 
 	return 0;
