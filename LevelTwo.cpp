@@ -12,8 +12,8 @@ LevelTwo::LevelTwo(sf::RenderWindow& window) :
 	// platformTexture.loadFromFile("./images/tile1.png");
 	leverTexture.loadFromFile("./images/tools.png");
 	// shurikenTexture.loadFromFile("./images/Suriken.png");
-	waterTexture.loadFromFile("./images/water.png");
-	lavaTexture.loadFromFile("./images/lava.png");
+	waterTexture.loadFromFile("./images/lava_water.png");
+	//lavaTexture.loadFromFile("./images/lava.png");
 	// fanTexture.loadFromFile("./images/Fan.png");
 	doortexture.loadFromFile("./images/door.png");
 	tiletexture.loadFromFile("./images/tiles.png");
@@ -46,8 +46,8 @@ LevelTwo::LevelTwo(sf::RenderWindow& window) :
 
 	door1 = std::make_unique<Door>(&doortexture, sf::Vector2f(100.0f, 150.0f), sf::Vector2f(993.0f, 165.0f), sf::Vector2u(6, 1), 0.2f);
 
-	water1 = std::make_unique<Water>(&waterTexture, sf::Vector2f(369.0f, 30.0f), sf::Vector2f(626.0f, 380.0f), sf::Vector2u(3, 1), 0.1f);
-	lava1 = std::make_unique<Water>(&lavaTexture, sf::Vector2f(369.0f, 30.0f), sf::Vector2f(626.0f, 217.0f), sf::Vector2u(3, 1), 0.3f);
+	water1 = std::make_unique<Water>(&waterTexture, sf::Vector2f(369.0f, 60.0f), sf::Vector2f(626.0f, 377.0f), sf::Vector2u(8, 2), 0.1f);
+	lava1 = std::make_unique<Water>(&waterTexture, sf::Vector2f(369.0f, 60.0f), sf::Vector2f(626.0f, 219.0f), sf::Vector2u(8, 2), 0.2f);
 
 	// shuriken1 = std::make_unique<Shuriken>(&shurikenTexture, sf::Vector2f(40.0f, 40.0f), sf::Vector2u(8, 1), 0.1f, sf::Vector2f(550.0f, 200.0f), sf::Vector2f(600.0f, 200.0f), 200.0f);
 	// fanBlade1 = std::make_unique<Shuriken>(&fanTexture, sf::Vector2f(60.0f, 60.0f), sf::Vector2u(8, 1), 0.1f, sf::Vector2f(400.0f, 350.0f), sf::Vector2f(100.0f, 400.0f), 0.0f);
@@ -180,8 +180,8 @@ void LevelTwo::Update(float deltaTime)
 	movablePlatform1->Update(lever1->GetIsOn(), deltaTime);
 	// shuriken1->Update(deltaTime);
 	// fanBlade1->Update(deltaTime);
-	water1->Update(deltaTime);
-	lava1->Update(deltaTime);
+	water1->Update(deltaTime, 1);
+	lava1->Update(deltaTime, 0);
 	door1->Update(deltaTime);
 
 	// movablePlatforms[0].Update(levers[0], deltaTime);

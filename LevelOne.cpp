@@ -13,8 +13,8 @@ LevelOne::LevelOne(sf::RenderWindow& window) :
 	// platformTexture.loadFromFile("./images/tile1.png");
 	leverTexture.loadFromFile("./images/tools.png");
 	// shurikenTexture.loadFromFile("./images/Suriken.png");
-	waterTexture.loadFromFile("./images/water.png");
-	lavaTexture.loadFromFile("./images/lava.png");
+	waterTexture.loadFromFile("./images/lava_water.png");
+	//lavaTexture.loadFromFile("./images/lava.png");
 	// fanTexture.loadFromFile("./images/Fan.png");
 	doortexture.loadFromFile("./images/door.png");
 	tiletexture.loadFromFile("./images/tiles.png");
@@ -47,8 +47,8 @@ LevelOne::LevelOne(sf::RenderWindow& window) :
 
 	door1 = std::make_unique<Door>(&doortexture, sf::Vector2f(100.0f, 150.0f), sf::Vector2f(993.0f, 165.0f), sf::Vector2u(6, 1), 0.2f);
 
-	water1 = std::make_unique<Water>(&waterTexture, sf::Vector2f(369.0f, 30.0f), sf::Vector2f(626.0f, 380.0f), sf::Vector2u(3, 1), 0.1f);
-	lava1 = std::make_unique<Water>(&lavaTexture, sf::Vector2f(369.0f, 30.0f), sf::Vector2f(626.0f, 217.0f), sf::Vector2u(3, 1), 0.3f);
+	water1 = std::make_unique<Water>(&waterTexture, sf::Vector2f(369.0f, 60.0f), sf::Vector2f(626.0f, 377.0f), sf::Vector2u(8, 2), 0.1f);
+	lava1 = std::make_unique<Water>(&waterTexture, sf::Vector2f(369.0f, 60.0f), sf::Vector2f(626.0f, 219.0f), sf::Vector2u(8, 2), 0.2f);
 
 	// shuriken1 = std::make_unique<Shuriken>(&shurikenTexture, sf::Vector2f(40.0f, 40.0f), sf::Vector2u(8, 1), 0.1f, sf::Vector2f(550.0f, 200.0f), sf::Vector2f(600.0f, 200.0f), 200.0f);
 	// fanBlade1 = std::make_unique<Shuriken>(&fanTexture, sf::Vector2f(60.0f, 60.0f), sf::Vector2u(8, 1), 0.1f, sf::Vector2f(400.0f, 350.0f), sf::Vector2f(100.0f, 400.0f), 0.0f);
@@ -58,7 +58,7 @@ LevelOne::LevelOne(sf::RenderWindow& window) :
 	// left big square top
 	platforms.push_back(Platform(&tiletexture, sf::Vector2f(672.0f, 624.0f), sf::Vector2f(-672.0f, 620.0f), sf::IntRect(0, 0, 14 * 16, 13 * 16)));
 	// right big square bottom
-	platforms.push_back(Platform(&tiletexture, sf::Vector2f(672.0f, 624.0f), sf::Vector2f(648.0f, 699.0f - 20), sf::IntRect(0, 0, 14 * 16, 13 * 16)));
+	//platforms.push_back(Platform(&tiletexture, sf::Vector2f(672.0f, 624.0f), sf::Vector2f(648.0f, 699.0f - 20), sf::IntRect(0, 0, 14 * 16, 13 * 16)));
 	// right big square top
 	platforms.push_back(Platform(&tiletexture, sf::Vector2f(672.0f, 624.0f), sf::Vector2f(1288.0f, 620.0f), sf::IntRect(0, 0, 14 * 16, 13 * 16)));
 
@@ -73,7 +73,26 @@ LevelOne::LevelOne(sf::RenderWindow& window) :
 	// right wall
 	platforms.push_back(Platform(&tiletexture, sf::Vector2f(672.0f, 22 * 48), sf::Vector2f(1449.0f, 289.0f), sf::IntRect(0, 16 * 16, 14 * 16, 22 * 16)));
 	// Lava Contained
-	platforms.push_back(Platform(&tiletexture, sf::Vector2f(434.0f, 62.0f), sf::Vector2f(629.0f, 241.0f), sf::IntRect(0, 14 * 16, 14 * 16, 2 * 16)));
+	//platforms.push_back(Platform(&tiletexture, sf::Vector2f(434.0f, 62.0f), sf::Vector2f(629.0f, 241.0f), sf::IntRect(0, 14 * 16, 14 * 16, 2 * 16)));
+
+
+	platforms.push_back(Platform(&tiletexture, sf::Vector2f(25.0f, 62.0f), sf::Vector2f(430.0f, 241.0f), sf::IntRect(0, 0, 0, 0)));
+	platforms.push_back(Platform(&tiletexture, sf::Vector2f(34.0f, 59.0f), sf::Vector2f(827.0f, 240.0f), sf::IntRect(0, 0, 0, 0)));
+	platforms.push_back(Platform(&tiletexture, sf::Vector2f(376.0f, 39.0f), sf::Vector2f(621.0f, 250.0f), sf::IntRect(0, 0, 0, 0)));
+	floatingPlatform.setSize(sf::Vector2f(434.0f, 62.0f));
+	floatingPlatform.setPosition(sf::Vector2f(629.0f, 241.0f));
+	floatingPlatform.setTexture(&tiletexture);
+	floatingPlatform.setTextureRect(sf::IntRect(0, 14 * 16, 14 * 16, 2 * 16));
+	floatingPlatform.setOrigin(floatingPlatform.getSize() / 2.0f);
+
+	platforms.push_back(Platform(&tiletexture, sf::Vector2f(122.0f, 188.0f), sf::Vector2f(379.0f, 465.0f), sf::IntRect(0, 0, 0, 0)));
+	platforms.push_back(Platform(&tiletexture, sf::Vector2f(376.0f, 39.0f), sf::Vector2f(623.0f, 410.0f), sf::IntRect(0, 0, 0, 0)));
+	platforms.push_back(Platform(&tiletexture, sf::Vector2f(376.0f, 39.0f), sf::Vector2f(998.0f, 387.0f), sf::IntRect(0, 0, 0, 0)));
+	groundPlatform.setSize(sf::Vector2f(672.0f, 624.0f));
+	groundPlatform.setPosition(648.0f, 679.0f );
+	groundPlatform.setTexture(&tiletexture);
+	groundPlatform.setTextureRect(sf::IntRect(0, 0, 14 * 16, 13 * 16));
+	groundPlatform.setOrigin(groundPlatform.getSize() / 2.0f);
 }
 
 void LevelOne::Restart() {
@@ -184,8 +203,8 @@ void LevelOne::Update(float deltaTime)
 	movablePlatform1->Update(lever1->GetIsOn(), deltaTime);
 	// shuriken1->Update(deltaTime);
 	// fanBlade1->Update(deltaTime);
-	water1->Update(deltaTime);
-	lava1->Update(deltaTime);
+	water1->Update(deltaTime, 1);
+	lava1->Update(deltaTime, 0);
 	door1->Update(deltaTime);
 
 	// movablePlatforms[0].Update(levers[0], deltaTime);
@@ -304,6 +323,8 @@ void LevelOne::Render(sf::RenderWindow& window)
 
 	window.draw(bgSprite);
 	//grassSprite.Draw(window);
+	window.draw(floatingPlatform);
+	window.draw(groundPlatform);
 
 	for (Platform& platform : platforms)
 	{
@@ -320,15 +341,18 @@ void LevelOne::Render(sf::RenderWindow& window)
 	//     platform.Draw(window);
 	// }
 	movablePlatform1->Draw(window);
-	water1->Draw(window);
-	lava1->Draw(window);
+
 	// shuriken1->Draw(window);
 	// fanBlade1->Draw(window);
 	door1->Draw(window);
 
+
 	lever1->Draw(window);
 	player1->Draw(window);
 	player2->Draw(window);
+
+	water1->Draw(window);
+	lava1->Draw(window);
 	// enemy.Draw(window);
 
 	window.draw(pauseButton);

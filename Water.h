@@ -18,7 +18,7 @@ public:
     Water(sf::Texture* texture, sf::Vector2f size, sf::Vector2f position, sf::Vector2u imageCount, float switchTime);
     ~Water();
 
-    void Update(float deltaTime);
+    void Update(float deltaTime, int row);
 
     void Draw(sf::RenderWindow& window);
 

@@ -22,7 +22,7 @@ class LevelOne : public Scene
 private:
 	//SceneManager& sceneManager;
 
-	sf::RectangleShape pauseButton;
+	sf::RectangleShape pauseButton, floatingPlatform, groundPlatform;
 
 	sf::Texture bgTexture;
 	sf::Texture player1Texture, player2Texture;
