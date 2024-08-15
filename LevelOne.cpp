@@ -89,7 +89,7 @@ LevelOne::LevelOne(sf::RenderWindow& window) :
 	platforms.push_back(Platform(&tiletexture, sf::Vector2f(376.0f, 39.0f), sf::Vector2f(623.0f, 410.0f), sf::IntRect(0, 0, 0, 0)));
 	platforms.push_back(Platform(&tiletexture, sf::Vector2f(376.0f, 39.0f), sf::Vector2f(998.0f, 387.0f), sf::IntRect(0, 0, 0, 0)));
 	groundPlatform.setSize(sf::Vector2f(672.0f, 624.0f));
-	groundPlatform.setPosition(648.0f, 679.0f );
+	groundPlatform.setPosition(648.0f, 679.0f);
 	groundPlatform.setTexture(&tiletexture);
 	groundPlatform.setTextureRect(sf::IntRect(0, 0, 14 * 16, 13 * 16));
 	groundPlatform.setOrigin(groundPlatform.getSize() / 2.0f);
@@ -358,10 +358,10 @@ void LevelOne::Render(sf::RenderWindow& window)
 	window.draw(pauseButton);
 
 	if (GameManager::getInstance().getIsGameOver())
-		gameOverMenu.Draw(window);
+		gameOverMenu.Draw(window, sf::Vector2f(233.0f, 100.0f));
 
 	if (GameManager::getInstance().getIsGamePaused())
-		pauseMenu.Draw(window);
+		pauseMenu.Draw(window, sf::Vector2f(233.0f, 100.0f));
 
 	// view.setCenter(player1->getPosition() - sf::Vector2f(0.0f, 250.0f));
 	view.setCenter(233.0f, 100.0f);

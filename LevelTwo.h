@@ -52,10 +52,12 @@ private:
 	// MovablePlatform movablePlatform1;
 
 	sf::View view;
+	sf::Vector2f cameraPos;
 	sf::RenderWindow& window;
 
 	std::vector<Sprite> sprites;
 	std::vector<Platform> platforms;
+	std::vector<Platform> nonCollaidablePlatforms;
 
 	GameOverMenu gameOverMenu;
 	PauseMenu pauseMenu;

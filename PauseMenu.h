@@ -19,5 +19,5 @@ public:
 	sf::RectangleShape geteExitButton() { return exitButton; }
 	sf::RectangleShape getRestartButton() { return restartButton; }
 
-	void Draw(sf::RenderWindow& window);
+	void Draw(sf::RenderWindow& window, sf::Vector2f cameraPos);
 };
