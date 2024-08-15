@@ -27,7 +27,7 @@ private:
 	sf::Texture player1Texture, player2Texture;
 	// sf::Texture platformTexture;
 	sf::Texture leverTexture;
-	// sf::Texture shurikenTexture;
+	sf::Texture shurikenTexture;
 	sf::Texture waterTexture;
 	sf::Texture lavaTexture;
 	// sf::Texture fanTexture;
@@ -43,11 +43,11 @@ private:
 	std::unique_ptr<Player> player1;
 	std::unique_ptr<Player2> player2;
 
-	std::unique_ptr<MovablePlatform> movablePlatform1, movablePlatform2;
-	std::unique_ptr<Lever> lever1;
+	std::unique_ptr<MovablePlatform> movablePlatform1, movablePlatform2, movablePlatform3, movablePlatform4, movablePlatform5;
+	std::unique_ptr<Lever> lever1, lever2;
 	std::unique_ptr<Door> door1;
 	std::unique_ptr<Water> water1, lava1;
-	// std::unique_ptr<Shuriken> shuriken1, fanBlade1;
+	std::unique_ptr<Shuriken> shuriken1, shuriken2, shuriken3, shuriken4, shuriken5, shuriken6;
 	// std::unique_ptr<Water> water1;
 	// MovablePlatform movablePlatform1;
 
@@ -58,6 +58,7 @@ private:
 	std::vector<Sprite> sprites;
 	std::vector<Platform> platforms;
 	std::vector<Platform> nonCollaidablePlatforms;
+	//std::vector<Shuriken> shurikens;
 
 	GameOverMenu gameOverMenu;
 	PauseMenu pauseMenu;

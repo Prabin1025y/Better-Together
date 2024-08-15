@@ -45,7 +45,7 @@ LevelOne::LevelOne(sf::RenderWindow& window) :
 
 	lever1 = std::make_unique<Lever>(&leverTexture, sf::Vector2f(-213.0f, 360.0f));
 
-	door1 = std::make_unique<Door>(&doortexture, sf::Vector2f(100.0f, 150.0f), sf::Vector2f(993.0f, 165.0f), sf::Vector2u(6, 1), 0.2f);
+	door1 = std::make_unique<Door>(&doortexture, sf::Vector2f(100.0f, 150.0f), sf::Vector2f(1038.0f, 233.0f), sf::Vector2u(6, 1), 0.2f);
 
 	water1 = std::make_unique<Water>(&waterTexture, sf::Vector2f(369.0f, 60.0f), sf::Vector2f(626.0f, 377.0f), sf::Vector2u(8, 2), 0.1f);
 	lava1 = std::make_unique<Water>(&waterTexture, sf::Vector2f(369.0f, 60.0f), sf::Vector2f(626.0f, 219.0f), sf::Vector2u(8, 2), 0.2f);

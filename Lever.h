@@ -9,33 +9,35 @@
 class Lever : public Collidable
 {
 private:
-    sf::RectangleShape body;
-    bool isOn;
+	sf::RectangleShape body;
+	bool isOn;
 
 public:
-    sf::IntRect uvRect;
+	sf::IntRect uvRect;
 
 public:
-    Lever(sf::Texture* texture, sf::Vector2f position);
-    ~Lever();
+	Lever(sf::Texture* texture, sf::Vector2f position);
+	~Lever();
 
-    void switchLever();
+	void switchLever();
 
-    bool GetIsOn() { return isOn; }
+	bool GetIsOn() { return isOn; }
 
-    // void OnCollision(sf::Vector2f direction);
+	sf::RectangleShape& getBody() { return body; }
 
-    // void keyReleased(sf::Keyboard::Key key);
+	// void OnCollision(sf::Vector2f direction);
 
-    // void Update(float deltaTime);
+	// void keyReleased(sf::Keyboard::Key key);
 
-    // bool CheckCollision(Collider &other);
+	// void Update(float deltaTime);
 
-    void Draw(sf::RenderWindow& window);
+	// bool CheckCollision(Collider &other);
 
-    // Collider getCollider() { return Collider(body); }
+	void Draw(sf::RenderWindow& window);
 
-    // sf::Vector2f getPosition() { return body.getPosition(); }
+	// Collider getCollider() { return Collider(body); }
+
+	// sf::Vector2f getPosition() { return body.getPosition(); }
 };
 
 #endif // LEVER_H

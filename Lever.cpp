@@ -17,6 +17,7 @@ Lever::Lever(sf::Texture* texture, sf::Vector2f position) : Collidable(body)
     isOn = false;
 
     body.setTextureRect(uvRect);
+
 }
 
 void Lever::Draw(sf::RenderWindow& window)

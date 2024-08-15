@@ -13,7 +13,7 @@ LevelTwo::LevelTwo(sf::RenderWindow& window) :
 	player2Texture.loadFromFile("./images/player2_sheet.png");
 	// platformTexture.loadFromFile("./images/tile1.png");
 	leverTexture.loadFromFile("./images/tools.png");
-	// shurikenTexture.loadFromFile("./images/Suriken.png");
+	shurikenTexture.loadFromFile("./images/Suriken.png");
 	waterTexture.loadFromFile("./images/lava_water.png");
 	//lavaTexture.loadFromFile("./images/lava.png");
 	// fanTexture.loadFromFile("./images/Fan.png");
@@ -23,7 +23,7 @@ LevelTwo::LevelTwo(sf::RenderWindow& window) :
 	pauseButton.setSize(sf::Vector2f(48.0f, 48.0f));
 	pauseButton.setTexture(&tiletexture);
 	pauseButton.setTextureRect(sf::IntRect(2 * 16, 38 * 16, 16, 16));
-	pauseButton.setPosition(-686.0f, -399.0f);
+
 
 	bgSprite.setTexture(bgTexture);
 	bgSprite.setOrigin(bgSprite.getLocalBounds().width / 2.0f, bgSprite.getLocalBounds().height / 2.0f);
@@ -40,18 +40,40 @@ LevelTwo::LevelTwo(sf::RenderWindow& window) :
 
 	Restart();
 
-	// shuriken1 = std::make_unique<Shuriken>(&shurikenTexture, sf::Vector2f(40.0f, 40.0f), sf::Vector2u(8, 1), 0.1f, sf::Vector2f(550.0f, 200.0f), sf::Vector2f(600.0f, 200.0f), 200.0f);
-	// fanBlade1 = std::make_unique<Shuriken>(&fanTexture, sf::Vector2f(60.0f, 60.0f), sf::Vector2u(8, 1), 0.1f, sf::Vector2f(400.0f, 350.0f), sf::Vector2f(100.0f, 400.0f), 0.0f);
+	/*shurikens.push_back(Shuriken(&shurikenTexture, sf::Vector2f(40.0f, 40.0f), sf::Vector2u(8, 1), 0.1f, sf::Vector2f(692.0f, 1.0f), sf::Vector2f(692.0f, -227.0f), 300.0f));
+	shurikens.push_back(Shuriken(&shurikenTexture, sf::Vector2f(40.0f, 40.0f), sf::Vector2u(8, 1), 0.1f, sf::Vector2f(842.0f, -227.0f), sf::Vector2f(842.0f, 1.0f), 300.0f));
+	shurikens.push_back(Shuriken(&shurikenTexture, sf::Vector2f(40.0f, 40.0f), sf::Vector2u(8, 1), 0.1f, sf::Vector2f(992.0f, 1.0f), sf::Vector2f(992.0f, -227.0f), 300.0f));
 
+	shurikens.push_back(Shuriken(&shurikenTexture, sf::Vector2f(40.0f, 40.0f), sf::Vector2u(8, 1), 0.1f, sf::Vector2f(1435.0f, 102.0f), sf::Vector2f(1643.0f, 102.0f), 300.0f));*/
+
+
+	shuriken1 = std::make_unique<Shuriken>(&shurikenTexture, sf::Vector2f(40.0f, 40.0f), sf::Vector2u(8, 1), 0.1f, sf::Vector2f(692.0f, 1.0f), sf::Vector2f(692.0f, -227.0f), 300.0f);
+	shuriken2 = std::make_unique<Shuriken>(&shurikenTexture, sf::Vector2f(40.0f, 40.0f), sf::Vector2u(8, 1), 0.1f, sf::Vector2f(842.0f, -227.0f), sf::Vector2f(842.0f, 1.0f), 300.0f);
+	shuriken3 = std::make_unique<Shuriken>(&shurikenTexture, sf::Vector2f(40.0f, 40.0f), sf::Vector2u(8, 1), 0.1f, sf::Vector2f(992.0f, 1.0f), sf::Vector2f(992.0f, -227.0f), 300.0f);
+
+	shuriken4 = std::make_unique<Shuriken>(&shurikenTexture, sf::Vector2f(40.0f, 40.0f), sf::Vector2u(8, 1), 0.1f, sf::Vector2f(1435.0f, 102.0f), sf::Vector2f(1643.0f, 102.0f), 200.0f);
+	shuriken5 = std::make_unique<Shuriken>(&shurikenTexture, sf::Vector2f(40.0f, 40.0f), sf::Vector2u(8, 1), 0.1f, sf::Vector2f(1946.0f, 102.0f), sf::Vector2f(2154.0f, 102.0f), 200.0f);
+	shuriken6 = std::make_unique<Shuriken>(&shurikenTexture, sf::Vector2f(40.0f, 40.0f), sf::Vector2u(8, 1), 0.1f, sf::Vector2f(1792.0f, 226.0f), sf::Vector2f(1792.0f, 78.0f), 300.0f);
+
+	platforms.push_back(Platform(&tiletexture, sf::Vector2f(672.0f, 96.0f), sf::Vector2f(-724.0f, -180.0f), sf::IntRect(0, 14 * 16, 14 * 16, 2 * 16))); // Left top one tiled
+
+	// fanBlade1 = std::make_unique<Shuriken>(&fanTexture, sf::Vector2f(60.0f, 60.0f), sf::Vector2u(8, 1), 0.1f, sf::Vector2f(400.0f, 350.0f), sf::Vector2f(100.0f, 400.0f), 0.0f);
+	platforms.push_back(Platform(&tiletexture, sf::Vector2f(100.0f, 20.0f), sf::Vector2f(-225.0f, -293.0f), sf::IntRect(15 * 16, 0, 2 * 16, 7)));//Lever Container left
 
 	platforms.push_back(Platform(&tiletexture, sf::Vector2f(672.0f, 624.0f), sf::Vector2f(-734.0f, 713.0f), sf::IntRect(0, 0, 14 * 16, 13 * 16))); //Left Bottom Big Square
 	platforms.push_back(Platform(&tiletexture, sf::Vector2f(672.0f, 624.0f), sf::Vector2f(853.0f, 347.0f), sf::IntRect(0, 0, 14 * 16, 13 * 16))); //middle left platform big square
+	platforms.push_back(Platform(&tiletexture, sf::Vector2f(672.0f, 22 * 48), sf::Vector2f(-984.0f, 70.0f), sf::IntRect(0, 16 * 16, 14 * 16, 22 * 16))); //left wall
+
+	platforms.push_back(Platform(&tiletexture, sf::Vector2f(240.0f, 864.0f), sf::Vector2f(2411.0f, 264.0f), sf::IntRect(0, 42 * 16, 6 * 16, 18 * 16))); //right thin big platform
 
 	nonCollaidablePlatforms.push_back(Platform(&tiletexture, sf::Vector2f(434.0f, 62.0f), sf::Vector2f(183.0f, -167.0f), sf::IntRect(0, 14 * 16, 14 * 16, 2 * 16))); //Water Container left
 	nonCollaidablePlatforms.push_back(Platform(&tiletexture, sf::Vector2f(434.0f, 62.0f), sf::Vector2f(108.0f, 157.0f), sf::IntRect(0, 14 * 16, 14 * 16, 2 * 16))); //Lava Container Left
-	platforms.push_back(Platform(&tiletexture, sf::Vector2f(672.0f, 96.0f), sf::Vector2f(-724.0f, -180.0f), sf::IntRect(0, 14 * 16, 14 * 16, 2 * 16))); // Left top one tiled
 
-	platforms.push_back(Platform(&tiletexture, sf::Vector2f(100.0f, 20.0f), sf::Vector2f(-225.0f, -293.0f), sf::IntRect(15 * 16, 0, 2 * 16, 7)));//Lever Container left
+
+	platforms.push_back(Platform(&tiletexture, sf::Vector2f(434.0f, 62.0f), sf::Vector2f(1544.0f, 161.0f), sf::IntRect(0, 14 * 16, 14 * 16, 2 * 16))); //shuriken container 1
+	platforms.push_back(Platform(&tiletexture, sf::Vector2f(434.0f, 62.0f), sf::Vector2f(2055.0f, 161.0f), sf::IntRect(0, 14 * 16, 14 * 16, 2 * 16))); //shuriken container 2
+
+	//platforms.push_back(Platform(&tiletexture, sf::Vector2f(434.0f, 62.0f), sf::Vector2f(2764.0f, 161.0f), sf::IntRect(0, 14 * 16, 14 * 16, 2 * 16))); //right most movable
 
 	//Invisible Platforms for water
 	platforms.push_back(Platform(&tiletexture, sf::Vector2f(25.0f, 62.0f), sf::Vector2f(430.0f - 521.0f, 241.0f - 85.0f), sf::IntRect(0, 0, 0, 0)));
@@ -66,16 +88,27 @@ LevelTwo::LevelTwo(sf::RenderWindow& window) :
 
 void LevelTwo::Restart() {
 	cameraPos = sf::Vector2f(233.0f, 100.0f);
-	player1 = std::make_unique<Player>(&player1Texture, sf::Vector2u(8, 8), 0.15f, 100.0f, 150.0f, sf::Vector2f(-488.0f, -610.0f));
+	/*player1 = std::make_unique<Player>(&player1Texture, sf::Vector2u(8, 8), 0.15f, 100.0f, 150.0f, sf::Vector2f(2228.0f, 18.0f));
+	player2 = std::make_unique<Player2>(&player2Texture, sf::Vector2u(8, 8), 0.15f, 100.0f, 150.0f, sf::Vector2f(2232.0f, 18.0f));*/
+
+	player1 = std::make_unique<Player>(&player1Texture, sf::Vector2u(8, 8), 0.15f, 100.0f, 150.0f, sf::Vector2f(-511.0f, -303.0f));
 	player2 = std::make_unique<Player2>(&player2Texture, sf::Vector2u(8, 8), 0.15f, 100.0f, 150.0f, sf::Vector2f(-470.0f, 25.0f));
 
 	movablePlatform1 = std::make_unique<MovablePlatform>(&tiletexture, sf::Vector2f(100.0f, 20.0f), sf::Vector2f(-470.0f, 552.0f), sf::Vector2f(-168.0f, 127.0f), 50.0f, sf::IntRect(15 * 16, 0, 2 * 16, 7));
-	movablePlatform2 = std::make_unique<MovablePlatform>(&tiletexture, sf::Vector2f(100.0f, 20.0f), sf::Vector2f(377.0f, 138.0f), sf::Vector2f(465.0f, 44.0f), 50.0f, sf::IntRect(15 * 16, 0, 2 * 16, 7));
+	movablePlatform2 = std::make_unique<MovablePlatform>(&tiletexture, sf::Vector2f(100.0f, 20.0f), sf::Vector2f(465.0f, 44.0f), sf::Vector2f(465.0f, 507.0f), 50.0f, sf::IntRect(15 * 16, 0, 2 * 16, 7));
+	movablePlatform3 = std::make_unique<MovablePlatform>(&tiletexture, sf::Vector2f(100.0f, 20.0f), sf::Vector2f(1890.0f, 156.0f), sf::Vector2f(2230.0f, -152.0f), 50.0f, sf::IntRect(15 * 16, 0, 2 * 16, 7));
+	movablePlatform4 = std::make_unique<MovablePlatform>(&tiletexture, sf::Vector2f(100.0f, 20.0f), sf::Vector2f(2928.0f, 156.0f), sf::Vector2f(2590.0f, -152.0f), 50.0f, sf::IntRect(15 * 16, 0, 2 * 16, 7));
 
-	lever1 = std::make_unique<Lever>(&leverTexture, sf::Vector2f(-228.0f, -334.0f));
+	movablePlatform5 = std::make_unique<MovablePlatform>(&tiletexture, sf::Vector2f(434.0f, 62.0f), sf::Vector2f(2764.0f, 161.0f), sf::Vector2f(2864.0f, 161.0f), 50.0f, sf::IntRect(0, 14 * 16, 14 * 16, 2 * 16));
+	//platforms.push_back(Platform(&tiletexture, sf::Vector2f(434.0f, 62.0f), sf::Vector2f(2764.0f, 161.0f), sf::IntRect(0, 14 * 16, 14 * 16, 2 * 16))); //right most movable
+
+	lever1 = std::make_unique<Lever>(&leverTexture, sf::Vector2f(-228.0f, -331.0f));
+	lever2 = std::make_unique<Lever>(&leverTexture, sf::Vector2f(2557.0f, 56.0f));
 	//lever1 = std::make_unique<Lever>(&leverTexture, sf::Vector2f(233.0f, 100.0f));
 
-	door1 = std::make_unique<Door>(&doortexture, sf::Vector2f(100.0f, 150.0f), sf::Vector2f(993.0f, 165.0f), sf::Vector2u(6, 1), 0.2f);
+	lever2->getBody().setRotation(90.0f);
+
+	door1 = std::make_unique<Door>(&doortexture, sf::Vector2f(100.0f, 150.0f), sf::Vector2f(2405.0f, -248.0f), sf::Vector2u(6, 1), 0.2f);
 
 	water1 = std::make_unique<Water>(&waterTexture, sf::Vector2f(369.0f, 60.0f), sf::Vector2f(176.0f, -188.0f), sf::Vector2u(8, 2), 0.1f);
 	lava1 = std::make_unique<Water>(&waterTexture, sf::Vector2f(369.0f, 60.0f), sf::Vector2f(105.0f, 135.0f), sf::Vector2u(8, 2), 0.2f);
@@ -118,11 +151,12 @@ void LevelTwo::HandleInput(sf::RenderWindow& window)
 				// lever1->switchLever();
 			break;
 		case sf::Event::MouseButtonPressed:
-			printf("%d, %d\n", sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y);
+			//printf("%d, %d\n", sf::Mouse::getPosition().x, sf::Mouse::getPosition().y);
 			if (evnt.mouseButton.button == sf::Mouse::Left) {
 				sf::Vector2i pixelPos = sf::Mouse::getPosition(window);
 
 				sf::Vector2f worldPos = window.mapPixelToCoords(pixelPos);
+				printf("%f, %f\n", worldPos.x, worldPos.y);
 
 				if (pauseButton.getGlobalBounds().contains(static_cast<sf::Vector2f>(worldPos)))
 					GameManager::getInstance().setIsGamePaused(true);
@@ -174,7 +208,26 @@ void LevelTwo::Update(float deltaTime)
 	player2->Update(deltaTime);
 	movablePlatform1->Update(lever1->GetIsOn(), deltaTime);
 	movablePlatform2->Update(lever1->GetIsOn(), deltaTime);
-	// shuriken1->Update(deltaTime);
+	movablePlatform3->Update(lever2->GetIsOn(), deltaTime);
+	movablePlatform4->Update(lever2->GetIsOn(), deltaTime);
+	movablePlatform5->Update(lever2->GetIsOn(), deltaTime);
+
+	pauseButton.setPosition(cameraPos.x - 919.0f, cameraPos.y - 499.0f);
+
+	/*for (Shuriken& shuriken : shurikens) {
+		shuriken.Update(deltaTime);*/
+
+		/*if (shuriken.CheckCollision(playerCollider))
+			player1->death();
+		if (shuriken.CheckCollision(player2Collider))
+			player2->death();*/
+			//}
+	shuriken1->Update(deltaTime);
+	shuriken2->Update(deltaTime);
+	shuriken3->Update(deltaTime);
+	shuriken4->Update(deltaTime);
+	shuriken5->Update(deltaTime);
+	shuriken6->Update(deltaTime);
 	// fanBlade1->Update(deltaTime);
 	water1->Update(deltaTime, 1);
 	lava1->Update(deltaTime, 0);
@@ -193,16 +246,21 @@ void LevelTwo::Update(float deltaTime)
 			player2->OnCollision(direction);
 	}
 
-	if (movablePlatform1->getCollider().CheckCollision(player2Collider, direction, 1.0f) || movablePlatform2->getCollider().CheckCollision(player2Collider, direction, 1.0f))
+	if (movablePlatform1->getCollider().CheckCollision(player2Collider, direction, 1.0f) || movablePlatform2->getCollider().CheckCollision(player2Collider, direction, 1.0f) || movablePlatform3->getCollider().CheckCollision(player2Collider, direction, 1.0f) || movablePlatform4->getCollider().CheckCollision(player2Collider, direction, 1.0f) || movablePlatform5->getCollider().CheckCollision(player2Collider, direction, 1.0f))
 	{
 		// printf("Colliding with player");
 		player2->OnCollision(direction);
 	}
-	if (movablePlatform1->getCollider().CheckCollision(playerCollider, direction, 1.0f) || movablePlatform2->getCollider().CheckCollision(playerCollider, direction, 1.0f))
+	if (movablePlatform1->getCollider().CheckCollision(playerCollider, direction, 1.0f) || movablePlatform2->getCollider().CheckCollision(playerCollider, direction, 1.0f) || movablePlatform3->getCollider().CheckCollision(playerCollider, direction, 1.0f) || movablePlatform4->getCollider().CheckCollision(playerCollider, direction, 1.0f) || movablePlatform5->getCollider().CheckCollision(playerCollider, direction, 1.0f))
 	{
 		// printf("Colliding with player");
 		player1->OnCollision(direction);
 	}
+
+	if (shuriken1->CheckCollision(playerCollider) || shuriken2->CheckCollision(playerCollider) || shuriken3->CheckCollision(playerCollider) || shuriken4->CheckCollision(playerCollider) || shuriken5->CheckCollision(playerCollider) || shuriken6->CheckCollision(playerCollider))
+		player1->death();
+	if (shuriken1->CheckCollision(player2Collider) || shuriken2->CheckCollision(player2Collider) || shuriken3->CheckCollision(player2Collider) || shuriken4->CheckCollision(player2Collider) || shuriken5->CheckCollision(player2Collider) || shuriken6->CheckCollision(player2Collider))
+		player2->death();
 
 	//if (playerCollider.CheckCollision(player2Collider, direction, 0.5f))
 	//{
@@ -234,18 +292,38 @@ void LevelTwo::Update(float deltaTime)
 		// printf("Touching Player");
 		lever1->switchLever();
 	}
+	if ((lever2->CheckCollision(playerCollider) && GameManager::getInstance().GetKeyPressed(sf::Keyboard::S)) || ((lever2->CheckCollision(player2Collider) && GameManager::getInstance().GetKeyPressed(sf::Keyboard::Down))))
+	{
+		// printf("Touching Player");
+		lever2->switchLever();
+	}
 
-	// if (shuriken1->CheckCollision(playerCollider) || shuriken1->CheckCollision(player2Collider))
-	// {
-	//     GameManager::getInstance().setIsGameOver(true);
-	//     printf("GameOver");
-	// }
+	/*if (shuriken1->CheckCollision(playerCollider) || shuriken2->CheckCollision(playerCollider) || shuriken3->CheckCollision(playerCollider))
+		player1->death();
+	if (shuriken1->CheckCollision(player2Collider) || shuriken2->CheckCollision(player2Collider) || shuriken3->CheckCollision(player2Collider))
+		player2->death();*/
+		//for (int i = 0; i < shurikens.size(); i++)
+		//{
+		//	//Shuriken& shuriken = shurikens[i];
 
-	// if (fanBlade1->CheckCollision(playerCollider) || fanBlade1->CheckCollision(player2Collider))
-	// {
-	//     GameManager::getInstance().setIsGameOver(true);
-	//     printf("GameOver");
-	// }
+		//	if (shuriken.CheckCollision(playerCollider))
+		//		player1->death();
+		//	if (shuriken.CheckCollision(player2Collider))
+		//		player2->death();
+		//}
+		/*for (Shuriken& shuriken : shurikens) {
+			if (shuriken.CheckCollision(playerCollider))
+				player1->death();
+			if (shuriken.CheckCollision(player2Collider))
+				player2->death();
+		}*/
+
+
+		// if (fanBlade1->CheckCollision(playerCollider) || fanBlade1->CheckCollision(player2Collider))
+		// {
+		//     GameManager::getInstance().setIsGameOver(true);
+		//     printf("GameOver");
+		// }
 
 	if (water1->CheckCollision(playerCollider))
 	{
@@ -282,6 +360,12 @@ void LevelTwo::Render(sf::RenderWindow& window)
 	window.draw(bgSprite);
 	//grassSprite.Draw(window);
 
+	movablePlatform1->Draw(window);
+	movablePlatform2->Draw(window);
+	movablePlatform3->Draw(window);
+	movablePlatform4->Draw(window);
+	movablePlatform5->Draw(window);
+
 	for (Platform& platform : platforms)
 	{
 		platform.Draw(window);
@@ -301,14 +385,18 @@ void LevelTwo::Render(sf::RenderWindow& window)
 	// {
 	//     platform.Draw(window);
 	// }
-	movablePlatform1->Draw(window);
-	movablePlatform2->Draw(window);
 
-	// shuriken1->Draw(window);
+	shuriken1->Draw(window);
+	shuriken2->Draw(window);
+	shuriken3->Draw(window);
+	shuriken4->Draw(window);
+	shuriken5->Draw(window);
+	shuriken6->Draw(window);
 	// fanBlade1->Draw(window);
 	door1->Draw(window);
 
 	lever1->Draw(window);
+	lever2->Draw(window);
 	player1->Draw(window);
 	player2->Draw(window);
 	// enemy.Draw(window);
