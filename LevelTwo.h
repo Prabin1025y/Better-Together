@@ -43,7 +43,7 @@ private:
 	std::unique_ptr<Player> player1;
 	std::unique_ptr<Player2> player2;
 
-	std::unique_ptr<MovablePlatform> movablePlatform1;
+	std::unique_ptr<MovablePlatform> movablePlatform1, movablePlatform2;
 	std::unique_ptr<Lever> lever1;
 	std::unique_ptr<Door> door1;
 	std::unique_ptr<Water> water1, lava1;
