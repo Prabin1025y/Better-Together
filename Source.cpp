@@ -1,6 +1,7 @@
 #include "SceneManager.h"
 #include "Scene.h"
 #include "LevelOne.h"
+#include "MainMenu.h"
 #include "LevelTwo.h"
 #include "GameManager.h"
 
@@ -9,7 +10,7 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(1920.0f, 1080.0f), "New WIndow", sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize);
 
 	//SceneManager sceneManager;
-	std::shared_ptr<Scene> levelOne = std::make_shared<LevelOne>(window);
+	std::shared_ptr<Scene> levelOne = std::make_shared<MainMenu>(window);
 	SceneManager::getInstance().ChangeScene(levelOne);
 
 	sf::Clock clock;

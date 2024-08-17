@@ -6,7 +6,11 @@ GameManager& GameManager::getInstance()
 	return instance;
 }
 
-GameManager::GameManager() : isGameOver(false), pressedKey(sf::Keyboard::End), isGamePaused(false) {}
+GameManager::GameManager() : isGameOver(false), pressedKey(sf::Keyboard::End), isGamePaused(false), isLevelCompleted(false) {
+	track1.openFromFile("track1.wav");
+	track1.play();
+	track1.setLoop(true);
+}
 
 void GameManager::setIsGameOver(bool value)
 {
@@ -16,6 +20,11 @@ void GameManager::setIsGameOver(bool value)
 void GameManager::setIsGamePaused(bool value)
 {
 	isGamePaused = value;
+}
+
+void GameManager::setIsLevelCompleted(bool value)
+{
+	isLevelCompleted = value;
 }
 
 void GameManager::SetKeyPressed(sf::Keyboard::Key key)

@@ -8,21 +8,24 @@
 class Door : public Collidable
 {
 private:
-    sf::RectangleShape body;
-    bool isDoorOpen;
-    AnimationAll animation;
+	sf::RectangleShape body;
+	bool isDoorOpen;
+	AnimationAll animation;
+
+	float totalTime = 0.0f;
 
 public:
-    Door(sf::Texture* texture, sf::Vector2f size, sf::Vector2f position, sf::Vector2u imageCount, float switchTime);
-    ~Door();
+	Door(sf::Texture* texture, sf::Vector2f size, sf::Vector2f position, sf::Vector2u imageCount, float switchTime);
+	~Door();
 
-    void Update(float deltaTime);
+	void Update(float deltaTime);
 
-    void setIsDoorOpen(bool value);
 
-    bool getIsDoorOpen() { return isDoorOpen; }
+	void setIsDoorOpen(bool value);
 
-    void Draw(sf::RenderWindow& window);
+	bool getIsDoorOpen() { return isDoorOpen; }
+
+	void Draw(sf::RenderWindow& window);
 };
 
 #endif // DOOR_H

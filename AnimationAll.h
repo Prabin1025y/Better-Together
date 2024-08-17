@@ -2,7 +2,7 @@
 #define ANIMATIONALL_H
 
 #include <SFML/Graphics.hpp>
-// #include "GameManager.h"
+ #include "GameManager.h"
 // #include "Player.h"
 
 class AnimationAll

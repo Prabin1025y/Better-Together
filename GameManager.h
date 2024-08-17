@@ -2,6 +2,7 @@
 #define GAMEMANAGER_H
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 class GameManager
 {
@@ -12,10 +13,14 @@ public:
     
     bool getIsGamePaused() const { return isGamePaused; }
     void setIsGamePaused(bool value);
+    
+    bool getIsLevelCompleted() const { return isLevelCompleted; }
+    void setIsLevelCompleted(bool value);
 
     void SetKeyPressed(sf::Keyboard::Key key);
     bool GetKeyPressed(sf::Keyboard::Key key);
 
+    sf::Music track1;
 
     //void keyReleased(sf::Keyboard::Key key);
 
@@ -26,6 +31,7 @@ private:
     GameManager();
     bool isGameOver;
     bool isGamePaused;
+    bool isLevelCompleted;
     sf::Keyboard::Key pressedKey;
 };
 

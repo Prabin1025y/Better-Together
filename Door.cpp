@@ -7,6 +7,7 @@ Door::Door(sf::Texture* texture, sf::Vector2f size, sf::Vector2f position, sf::V
 	body.setSize(size);
 	body.setOrigin(body.getSize() / 2.0f);
 	isDoorOpen = false;
+
 }
 
 void Door::setIsDoorOpen(bool value)
@@ -16,10 +17,22 @@ void Door::setIsDoorOpen(bool value)
 
 void Door::Update(float deltaTime)
 {
-	if (isDoorOpen)
+
+
+
+
+	if (isDoorOpen) {
 		animation.Update(0, deltaTime, 6);
+		totalTime += deltaTime;
+
+		if (totalTime > 2)
+			GameManager::getInstance().setIsLevelCompleted(true);
+	}
 
 	body.setTextureRect(animation.uvRect);
+
+
+
 }
 
 void Door::Draw(sf::RenderWindow& window)

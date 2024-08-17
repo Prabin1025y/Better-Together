@@ -15,6 +15,9 @@
 #include "Sprite.h"
 #include "GameOverMenu.h"
 #include "PauseMenu.h"
+#include "Completed.h"
+#include "LevelOne.h"
+#include "MainMenu.h"
 
 class LevelTwo : public Scene
 {
@@ -62,6 +65,8 @@ private:
 
 	GameOverMenu gameOverMenu;
 	PauseMenu pauseMenu;
+	Completed completedMenu;
+
 
 
 

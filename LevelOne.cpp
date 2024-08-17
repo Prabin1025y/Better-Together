@@ -1,13 +1,16 @@
 #include "LevelOne.h"
 #include "LevelTwo.h"
 
+
 LevelOne::LevelOne(sf::RenderWindow& window) :
 	view(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(VIEW_WIDTH, VIEW_HEIGHT)),
 	window(window),
 	gameOverMenu(window, &tiletexture),
-	pauseMenu(window, &tiletexture)
+	pauseMenu(window, &tiletexture),
+	completedMenu(window, &tiletexture)
 {
-	bgTexture.loadFromFile("./images/bg.png");
+	//bgTexture.loadFromFile("./images/bg.png");
+	bgTexture.loadFromFile("./images/bg1.jpeg");
 	player1Texture.loadFromFile("./images/player1_sheet.png");
 	player2Texture.loadFromFile("./images/player2_sheet.png");
 	// platformTexture.loadFromFile("./images/tile1.png");
@@ -18,11 +21,21 @@ LevelOne::LevelOne(sf::RenderWindow& window) :
 	// fanTexture.loadFromFile("./images/Fan.png");
 	doortexture.loadFromFile("./images/door.png");
 	tiletexture.loadFromFile("./images/tiles.png");
+	arialFont.loadFromFile("ARIAL.TTF");
+
+	timeText.setFont(arialFont);
+	timeText.setFillColor(sf::Color::Red);
+	timeText.setPosition(106, -396);
+	timeText.setStyle(sf::Text::Bold);
+	timeText.setOutlineColor(sf::Color::Black);
+	timeText.setOutlineThickness(1);
 
 	pauseButton.setSize(sf::Vector2f(48.0f, 48.0f));
 	pauseButton.setTexture(&tiletexture);
 	pauseButton.setTextureRect(sf::IntRect(2 * 16, 38 * 16, 16, 16));
 	pauseButton.setPosition(-686.0f, -399.0f);
+
+
 
 	bgSprite.setTexture(bgTexture);
 	bgSprite.setOrigin(bgSprite.getLocalBounds().width / 2.0f, bgSprite.getLocalBounds().height / 2.0f);
@@ -38,7 +51,7 @@ LevelOne::LevelOne(sf::RenderWindow& window) :
 	sprites.push_back(Sprite(tiletexture, sf::Vector2f(314.0f, 272.0f), sf::Vector2f(3, 3), sf::IntRect(15 * 16, 8 * 16, 2 * 16, 2 * 16)));//grave
 
 
-	player1 = std::make_unique<Player>(&player1Texture, sf::Vector2u(8, 8), 0.15f, 100.0f, 150.0f, sf::Vector2f(-470.0f, 264.0f));
+	/*player1 = std::make_unique<Player>(&player1Texture, sf::Vector2u(8, 8), 0.15f, 100.0f, 150.0f, sf::Vector2f(-470.0f, 264.0f));
 	player2 = std::make_unique<Player2>(&player2Texture, sf::Vector2u(8, 8), 0.15f, 100.0f, 150.0f, sf::Vector2f(-470.0f, 25.0f));
 
 	movablePlatform1 = std::make_unique<MovablePlatform>(&tiletexture, sf::Vector2f(100.0f, 20.0f), sf::Vector2f(-58.0f, 400.0f), sf::Vector2f(-58.0f + 311.0f, 400.0f - 18.0f), 50.0f, sf::IntRect(15 * 16, 0, 2 * 16, 7));
@@ -48,7 +61,9 @@ LevelOne::LevelOne(sf::RenderWindow& window) :
 	door1 = std::make_unique<Door>(&doortexture, sf::Vector2f(100.0f, 150.0f), sf::Vector2f(1038.0f, 233.0f), sf::Vector2u(6, 1), 0.2f);
 
 	water1 = std::make_unique<Water>(&waterTexture, sf::Vector2f(369.0f, 60.0f), sf::Vector2f(626.0f, 377.0f), sf::Vector2u(8, 2), 0.1f);
-	lava1 = std::make_unique<Water>(&waterTexture, sf::Vector2f(369.0f, 60.0f), sf::Vector2f(626.0f, 219.0f), sf::Vector2u(8, 2), 0.2f);
+	lava1 = std::make_unique<Water>(&waterTexture, sf::Vector2f(369.0f, 60.0f), sf::Vector2f(626.0f, 219.0f), sf::Vector2u(8, 2), 0.2f);*/
+
+	Restart();
 
 	// shuriken1 = std::make_unique<Shuriken>(&shurikenTexture, sf::Vector2f(40.0f, 40.0f), sf::Vector2u(8, 1), 0.1f, sf::Vector2f(550.0f, 200.0f), sf::Vector2f(600.0f, 200.0f), 200.0f);
 	// fanBlade1 = std::make_unique<Shuriken>(&fanTexture, sf::Vector2f(60.0f, 60.0f), sf::Vector2u(8, 1), 0.1f, sf::Vector2f(400.0f, 350.0f), sf::Vector2f(100.0f, 400.0f), 0.0f);
@@ -99,11 +114,24 @@ void LevelOne::Restart() {
 	player1 = std::make_unique<Player>(&player1Texture, sf::Vector2u(8, 8), 0.15f, 100.0f, 150.0f, sf::Vector2f(-470.0f, 264.0f));
 	player2 = std::make_unique<Player2>(&player2Texture, sf::Vector2u(8, 8), 0.15f, 100.0f, 150.0f, sf::Vector2f(-470.0f, 25.0f));
 
+
 	movablePlatform1 = std::make_unique<MovablePlatform>(&tiletexture, sf::Vector2f(100.0f, 20.0f), sf::Vector2f(-58.0f, 400.0f), sf::Vector2f(-58.0f + 311.0f, 400.0f - 18.0f), 50.0f, sf::IntRect(15 * 16, 0, 2 * 16, 7));
 
 	lever1 = std::make_unique<Lever>(&leverTexture, sf::Vector2f(-213.0f, 360.0f));
 
-	door1 = std::make_unique<Door>(&doortexture, sf::Vector2f(100.0f, 150.0f), sf::Vector2f(993.0f, 165.0f), sf::Vector2u(6, 1), 0.2f);
+	door1 = std::make_unique<Door>(&doortexture, sf::Vector2f(100.0f, 150.0f), sf::Vector2f(1038.0f, 233.0f), sf::Vector2u(6, 1), 0.2f);
+
+	water1 = std::make_unique<Water>(&waterTexture, sf::Vector2f(369.0f, 60.0f), sf::Vector2f(626.0f, 377.0f), sf::Vector2u(8, 2), 0.1f);
+	lava1 = std::make_unique<Water>(&waterTexture, sf::Vector2f(369.0f, 60.0f), sf::Vector2f(626.0f, 219.0f), sf::Vector2u(8, 2), 0.2f);
+
+	/*player1 = std::make_unique<Player>(&player1Texture, sf::Vector2u(8, 8), 0.15f, 100.0f, 150.0f, sf::Vector2f(-470.0f, 264.0f));
+	player2 = std::make_unique<Player2>(&player2Texture, sf::Vector2u(8, 8), 0.15f, 100.0f, 150.0f, sf::Vector2f(-470.0f, 25.0f));
+
+	movablePlatform1 = std::make_unique<MovablePlatform>(&tiletexture, sf::Vector2f(100.0f, 20.0f), sf::Vector2f(-58.0f, 400.0f), sf::Vector2f(-58.0f + 311.0f, 400.0f - 18.0f), 50.0f, sf::IntRect(15 * 16, 0, 2 * 16, 7));
+
+	lever1 = std::make_unique<Lever>(&leverTexture, sf::Vector2f(-213.0f, 360.0f));
+
+	door1 = std::make_unique<Door>(&doortexture, sf::Vector2f(100.0f, 150.0f), sf::Vector2f(993.0f, 165.0f), sf::Vector2u(6, 1), 0.2f);*/
 
 	GameManager::getInstance().setIsGameOver(false);
 	GameManager::getInstance().setIsGamePaused(false);
@@ -157,31 +185,67 @@ void LevelOne::HandleInput(sf::RenderWindow& window)
 
 				if (GameManager::getInstance().getIsGameOver()) {
 					if (gameOverMenu.getRestartButton().getGlobalBounds().contains(static_cast<sf::Vector2f>(worldPos))) {
-						printf("Coming");
+						//printf("Coming");
 						Restart();
 					}
 
 					if (gameOverMenu.geteExitButton().getGlobalBounds().contains(static_cast<sf::Vector2f>(worldPos))) {
-						printf("Coming");
+						//printf("Coming");
 						window.close();
+					}
+
+					if (gameOverMenu.getOptionButton().getGlobalBounds().contains(static_cast<sf::Vector2f>(worldPos))) {
+						GameManager::getInstance().setIsLevelCompleted(false);
+						std::shared_ptr<Scene> mainMenu = std::make_shared<MainMenu>(window);
+						SceneManager::getInstance().ChangeScene(mainMenu);
 					}
 				}
 				if (GameManager::getInstance().getIsGamePaused()) {
 					if (pauseMenu.getRestartButton().getGlobalBounds().contains(static_cast<sf::Vector2f>(worldPos))) {
-						printf("Coming");
+						//printf("Coming");
 						Restart();
 					}
 
 					if (pauseMenu.geteExitButton().getGlobalBounds().contains(static_cast<sf::Vector2f>(worldPos))) {
-						printf("Coming");
+						//printf("Coming");
 						window.close();
 					}
 
 					if (pauseMenu.getResumeButton().getGlobalBounds().contains(static_cast<sf::Vector2f>(worldPos))) {
-						printf("Coming");
+						//printf("Coming");
 						GameManager::getInstance().setIsGamePaused(false);
 					}
 
+					if (pauseMenu.getOptionButton().getGlobalBounds().contains(static_cast<sf::Vector2f>(worldPos))) {
+						GameManager::getInstance().setIsLevelCompleted(false);
+						std::shared_ptr<Scene> mainMenu = std::make_shared<MainMenu>(window);
+						SceneManager::getInstance().ChangeScene(mainMenu);
+					}
+				}
+				if (GameManager::getInstance().getIsLevelCompleted()) {
+					if (completedMenu.getRestartButton().getGlobalBounds().contains(static_cast<sf::Vector2f>(worldPos))) {
+						//printf("Coming");
+						Restart();
+					}
+
+					if (completedMenu.geteExitButton().getGlobalBounds().contains(static_cast<sf::Vector2f>(worldPos))) {
+						//printf("Coming");
+						window.close();
+					}
+
+					if (completedMenu.getNextButton().getGlobalBounds().contains(static_cast<sf::Vector2f>(worldPos))) {
+						//printf("Coming");
+						GameManager::getInstance().setIsLevelCompleted(false);
+						std::shared_ptr<Scene> levelTwo = std::make_shared<LevelTwo>(window);
+						SceneManager::getInstance().ChangeScene(levelTwo);
+						//GameManager::getInstance().setIsGamePaused(false);
+					}
+
+					if (completedMenu.getOptionButton().getGlobalBounds().contains(static_cast<sf::Vector2f>(worldPos))) {
+						GameManager::getInstance().setIsLevelCompleted(false);
+						std::shared_ptr<Scene> mainMenu = std::make_shared<MainMenu>(window);
+						SceneManager::getInstance().ChangeScene(mainMenu);
+					}
 				}
 			}
 			break;
@@ -194,6 +258,13 @@ void LevelOne::HandleInput(sf::RenderWindow& window)
 
 void LevelOne::Update(float deltaTime)
 {
+
+	time += deltaTime;
+
+	std::ostringstream stream;
+	stream << std::fixed << std::setprecision(2) << time;
+
+	timeText.setString(stream.str());
 
 	Collider playerCollider = player1->getCollider();
 	Collider player2Collider = player2->getCollider();
@@ -299,8 +370,10 @@ void LevelOne::Update(float deltaTime)
 		player2->death();
 	}
 
-	if (door1->CheckCollision(playerCollider) && door1->CheckCollision(player2Collider))
+	if (door1->CheckCollision(playerCollider) && door1->CheckCollision(player2Collider)) {
 		door1->setIsDoorOpen(true);
+		//GameManager::getInstance().setIsLevelCompleted(true);
+	}
 
 	// Collider enemyCollider = enemy.getCollider();
 	// if (platform1.getCollider().CheckCollision(enemyCollider, direction, 1.0f))
@@ -355,6 +428,8 @@ void LevelOne::Render(sf::RenderWindow& window)
 	lava1->Draw(window);
 	// enemy.Draw(window);
 
+	window.draw(timeText);
+
 	window.draw(pauseButton);
 
 	if (GameManager::getInstance().getIsGameOver())
@@ -362,6 +437,9 @@ void LevelOne::Render(sf::RenderWindow& window)
 
 	if (GameManager::getInstance().getIsGamePaused())
 		pauseMenu.Draw(window, sf::Vector2f(233.0f, 100.0f));
+
+	if (GameManager::getInstance().getIsLevelCompleted())
+		completedMenu.Draw(window, sf::Vector2f(233.0f, 100.0f));
 
 	// view.setCenter(player1->getPosition() - sf::Vector2f(0.0f, 250.0f));
 	view.setCenter(233.0f, 100.0f);

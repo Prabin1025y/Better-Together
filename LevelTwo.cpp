@@ -4,11 +4,13 @@ LevelTwo::LevelTwo(sf::RenderWindow& window) :
 	view(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(VIEW_WIDTH, VIEW_HEIGHT)),
 	window(window),
 	gameOverMenu(window, &tiletexture),
-	pauseMenu(window, &tiletexture)
+	pauseMenu(window, &tiletexture),
+	completedMenu(window, &tiletexture)
 {
 
 	//bgTexture.loadFromFile("./images/lv2_blueprint.png");
-	bgTexture.loadFromFile("./images/bg.png");
+	//bgTexture.loadFromFile("./images/bg.png");
+	bgTexture.loadFromFile("./images/bg1.jpeg");
 	player1Texture.loadFromFile("./images/player1_sheet.png");
 	player2Texture.loadFromFile("./images/player2_sheet.png");
 	// platformTexture.loadFromFile("./images/tile1.png");
@@ -55,7 +57,7 @@ LevelTwo::LevelTwo(sf::RenderWindow& window) :
 	shuriken5 = std::make_unique<Shuriken>(&shurikenTexture, sf::Vector2f(40.0f, 40.0f), sf::Vector2u(8, 1), 0.1f, sf::Vector2f(1946.0f, 102.0f), sf::Vector2f(2154.0f, 102.0f), 200.0f);
 	shuriken6 = std::make_unique<Shuriken>(&shurikenTexture, sf::Vector2f(40.0f, 40.0f), sf::Vector2u(8, 1), 0.1f, sf::Vector2f(1792.0f, 226.0f), sf::Vector2f(1792.0f, 78.0f), 300.0f);
 
-	platforms.push_back(Platform(&tiletexture, sf::Vector2f(672.0f, 96.0f), sf::Vector2f(-724.0f, -180.0f), sf::IntRect(0, 14 * 16, 14 * 16, 2 * 16))); // Left top one tiled
+	platforms.push_back(Platform(&tiletexture, sf::Vector2f(672.0f, 96.0f), sf::Vector2f(-724.0f, -180.0f), sf::IntRect(0, 14 * 16, 14 * 16, 2 * 16))); // Left top one tiled 
 
 	// fanBlade1 = std::make_unique<Shuriken>(&fanTexture, sf::Vector2f(60.0f, 60.0f), sf::Vector2u(8, 1), 0.1f, sf::Vector2f(400.0f, 350.0f), sf::Vector2f(100.0f, 400.0f), 0.0f);
 	platforms.push_back(Platform(&tiletexture, sf::Vector2f(100.0f, 20.0f), sf::Vector2f(-225.0f, -293.0f), sf::IntRect(15 * 16, 0, 2 * 16, 7)));//Lever Container left
@@ -88,8 +90,8 @@ LevelTwo::LevelTwo(sf::RenderWindow& window) :
 
 void LevelTwo::Restart() {
 	cameraPos = sf::Vector2f(233.0f, 100.0f);
-	/*player1 = std::make_unique<Player>(&player1Texture, sf::Vector2u(8, 8), 0.15f, 100.0f, 150.0f, sf::Vector2f(2228.0f, 18.0f));
-	player2 = std::make_unique<Player2>(&player2Texture, sf::Vector2u(8, 8), 0.15f, 100.0f, 150.0f, sf::Vector2f(2232.0f, 18.0f));*/
+	/*player1 = std::make_unique<Player>(&player1Texture, sf::Vector2u(8, 8), 0.15f, 100.0f, 150.0f, sf::Vector2f(2290.0f, -227.0f));
+	player2 = std::make_unique<Player2>(&player2Texture, sf::Vector2u(8, 8), 0.15f, 100.0f, 150.0f, sf::Vector2f(2517.0f, -227.0f));*/
 
 	player1 = std::make_unique<Player>(&player1Texture, sf::Vector2u(8, 8), 0.15f, 100.0f, 150.0f, sf::Vector2f(-511.0f, -303.0f));
 	player2 = std::make_unique<Player2>(&player2Texture, sf::Vector2u(8, 8), 0.15f, 100.0f, 150.0f, sf::Vector2f(-470.0f, 25.0f));
@@ -171,6 +173,12 @@ void LevelTwo::HandleInput(sf::RenderWindow& window)
 						printf("Coming");
 						window.close();
 					}
+
+					if (gameOverMenu.getOptionButton().getGlobalBounds().contains(static_cast<sf::Vector2f>(worldPos))) {
+						GameManager::getInstance().setIsLevelCompleted(false);
+						std::shared_ptr<Scene> mainMenu = std::make_shared<MainMenu>(window);
+						SceneManager::getInstance().ChangeScene(mainMenu);
+					}
 				}
 				if (GameManager::getInstance().getIsGamePaused()) {
 					if (pauseMenu.getRestartButton().getGlobalBounds().contains(static_cast<sf::Vector2f>(worldPos))) {
@@ -188,6 +196,33 @@ void LevelTwo::HandleInput(sf::RenderWindow& window)
 						GameManager::getInstance().setIsGamePaused(false);
 					}
 
+					if (pauseMenu.getOptionButton().getGlobalBounds().contains(static_cast<sf::Vector2f>(worldPos))) {
+						GameManager::getInstance().setIsLevelCompleted(false);
+						std::shared_ptr<Scene> mainMenu = std::make_shared<MainMenu>(window);
+						SceneManager::getInstance().ChangeScene(mainMenu);
+					}
+
+				}
+				if (GameManager::getInstance().getIsLevelCompleted()) {
+					if (completedMenu.getRestartButton().getGlobalBounds().contains(static_cast<sf::Vector2f>(worldPos))) {
+						Restart();
+					}
+
+					if (completedMenu.geteExitButton().getGlobalBounds().contains(static_cast<sf::Vector2f>(worldPos))) {
+						window.close();
+					}
+
+					if (completedMenu.getNextButton().getGlobalBounds().contains(static_cast<sf::Vector2f>(worldPos))) {
+						GameManager::getInstance().setIsLevelCompleted(false);
+						std::shared_ptr<Scene> levelOne = std::make_shared<LevelOne>(window);
+						SceneManager::getInstance().ChangeScene(levelOne);
+					}
+
+					if (completedMenu.getOptionButton().getGlobalBounds().contains(static_cast<sf::Vector2f>(worldPos))) {
+						GameManager::getInstance().setIsLevelCompleted(false);
+						std::shared_ptr<Scene> mainMenu = std::make_shared<MainMenu>(window);
+						SceneManager::getInstance().ChangeScene(mainMenu);
+					}
 				}
 			}
 			break;
@@ -335,8 +370,10 @@ void LevelTwo::Update(float deltaTime)
 		player2->death();
 	}
 
-	if (door1->CheckCollision(playerCollider) && door1->CheckCollision(player2Collider))
+	if (door1->CheckCollision(playerCollider) && door1->CheckCollision(player2Collider)) {
 		door1->setIsDoorOpen(true);
+
+	}
 
 	// Collider enemyCollider = enemy.getCollider();
 	// if (platform1.getCollider().CheckCollision(enemyCollider, direction, 1.0f))
@@ -411,6 +448,9 @@ void LevelTwo::Render(sf::RenderWindow& window)
 
 	if (GameManager::getInstance().getIsGamePaused())
 		pauseMenu.Draw(window, cameraPos);
+
+	if (GameManager::getInstance().getIsLevelCompleted())
+		completedMenu.Draw(window, cameraPos);
 
 	// view.setCenter(player1->getPosition() - sf::Vector2f(0.0f, 250.0f));
 	if (player1->getPosition().x > cameraPos.x + 500)

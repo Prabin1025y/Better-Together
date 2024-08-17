@@ -16,11 +16,17 @@
 #include "Sprite.h"
 #include "GameOverMenu.h"
 #include "PauseMenu.h"
+#include "Completed.h"
+#include "MainMenu.h"
+#include <string>
+#include <sstream>
+#include <iomanip>
 
 class LevelOne : public Scene
 {
 private:
 	//SceneManager& sceneManager;
+
 
 	sf::RectangleShape pauseButton, floatingPlatform, groundPlatform;
 
@@ -60,6 +66,12 @@ private:
 
 	GameOverMenu gameOverMenu;
 	PauseMenu pauseMenu;
+	Completed completedMenu;
+
+	float time = 0.0f;
+
+	sf::Text timeText;
+	sf::Font arialFont;
 
 
 
