@@ -133,6 +133,7 @@ void LevelOne::Restart() {
 	lever1 = std::make_unique<Lever>(&leverTexture, sf::Vector2f(-213.0f, 360.0f));
 
 	door1 = std::make_unique<Door>(&doortexture, sf::Vector2f(100.0f, 150.0f), sf::Vector2f(993.0f, 165.0f), sf::Vector2u(6, 1), 0.2f);*/
+	GameManager::getInstance().changeSong("level1Music.wav", true);
 
 	GameManager::getInstance().setIsGameOver(false);
 	GameManager::getInstance().setIsGamePaused(false);

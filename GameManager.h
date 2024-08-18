@@ -27,6 +27,8 @@ public:
 	void loadData(GameData& gamedata);
 	void saveData(GameData& gamedata);
 
+	void changeSong(std::string songName, bool loop);
+
 
 
 

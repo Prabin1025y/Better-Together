@@ -86,6 +86,8 @@ MainMenu::MainMenu(sf::RenderWindow& window) :
 	player2.setPosition(484.0f, -346.0f);
 	currentPlayer2.setPosition(676, 256.0f);
 
+	GameManager::getInstance().changeSong("mainMenuMusic.wav", true);
+
 	playerRect = sf::IntRect(0, 5 * 20, 16, 20);
 
 }

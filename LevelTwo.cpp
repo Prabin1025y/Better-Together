@@ -37,6 +37,8 @@ LevelTwo::LevelTwo(sf::RenderWindow& window) :
 	bgSprite.setTexture(bgTexture);
 	bgSprite.setOrigin(bgSprite.getLocalBounds().width / 2.0f, bgSprite.getLocalBounds().height / 2.0f);
 
+	GameManager::getInstance().changeSong("level2Music.wav", true);
+
 	//sprites.push_back(Sprite(tiletexture, sf::Vector2f(-292.0f, 292.0f), sf::Vector2f(3, 3), sf::IntRect(15 * 16, 6 * 16, 4 * 16, 2 * 16)));//bottom left stone
 	//sprites.push_back(Sprite(tiletexture, sf::Vector2f(-600.0f, 10.0f), sf::Vector2f(2, 2), sf::IntRect(15 * 16, 16, 32, 32))); // top left grass
 	//sprites.push_back(Sprite(tiletexture, sf::Vector2f(-444.0f, 244.0f), sf::Vector2f(2, 2), sf::IntRect(15 * 16, 16, 32, 32)));// middle left grass

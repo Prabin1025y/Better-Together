@@ -20,7 +20,7 @@ void Shuriken::Update(float deltaTime)
 {
     GameManager& gameManager = GameManager::getInstance();
 
-    if (abs(currentPosition.x - endPosition.x) < 1.0f && abs(currentPosition.y - endPosition.y) < 1.0f)
+    if (abs(currentPosition.x - endPosition.x) < 2.0f && abs(currentPosition.y - endPosition.y) < 2.0f)
     {
         // printf("switch position");
         endPosition = (endPosition == translatedPosition) ? initialPosition : translatedPosition;

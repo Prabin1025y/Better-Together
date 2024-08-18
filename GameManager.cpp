@@ -7,9 +7,6 @@ GameManager& GameManager::getInstance()
 }
 
 GameManager::GameManager() : isGameOver(false), pressedKey(sf::Keyboard::End), isGamePaused(false), isLevelCompleted(false) {
-	track1.openFromFile("track1.wav");
-	track1.play();
-	track1.setLoop(true);
 
 }
 
@@ -104,6 +101,14 @@ void GameManager::saveData(GameData& gamedata)
 	//else {
 	//	printf("Error opening file for writing");
 	//}
+}
+
+void GameManager::changeSong(std::string songName, bool loop)
+{
+	track1.stop();
+	track1.openFromFile(songName);
+	track1.play();
+	track1.setLoop(loop);
 }
 
 GameManager::~GameManager() {
