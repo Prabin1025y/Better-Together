@@ -21,6 +21,13 @@ LevelTwo::LevelTwo(sf::RenderWindow& window) :
 	// fanTexture.loadFromFile("./images/Fan.png");
 	doortexture.loadFromFile("./images/door.png");
 	tiletexture.loadFromFile("./images/tiles.png");
+	minecraftFont.loadFromFile("Minecraft.ttf");
+
+	timeText.setFont(minecraftFont);
+	timeText.setFillColor(sf::Color::Red);
+	timeText.setStyle(sf::Text::Bold);
+	timeText.setOutlineColor(sf::Color::Black);
+	timeText.setOutlineThickness(1);
 
 	pauseButton.setSize(sf::Vector2f(48.0f, 48.0f));
 	pauseButton.setTexture(&tiletexture);
@@ -89,6 +96,7 @@ LevelTwo::LevelTwo(sf::RenderWindow& window) :
 }
 
 void LevelTwo::Restart() {
+	time = 0.0f;
 	cameraPos = sf::Vector2f(233.0f, 100.0f);
 	/*player1 = std::make_unique<Player>(&player1Texture, sf::Vector2u(8, 8), 0.15f, 100.0f, 150.0f, sf::Vector2f(2290.0f, -227.0f));
 	player2 = std::make_unique<Player2>(&player2Texture, sf::Vector2u(8, 8), 0.15f, 100.0f, 150.0f, sf::Vector2f(2517.0f, -227.0f));*/
@@ -236,6 +244,16 @@ void LevelTwo::HandleInput(sf::RenderWindow& window)
 void LevelTwo::Update(float deltaTime)
 {
 
+	if (!door1->getIsDoorOpen())
+		time += deltaTime;
+
+	timeText.setPosition(view.getCenter() - sf::Vector2f(105, 508));
+
+	std::ostringstream stream;
+	stream << std::fixed << std::setprecision(2) << time;
+
+	timeText.setString(stream.str());
+
 	Collider playerCollider = player1->getCollider();
 	Collider player2Collider = player2->getCollider();
 
@@ -372,6 +390,15 @@ void LevelTwo::Update(float deltaTime)
 
 	if (door1->CheckCollision(playerCollider) && door1->CheckCollision(player2Collider)) {
 		door1->setIsDoorOpen(true);
+		GameData gamedata;
+		GameManager::getInstance().loadData(gamedata);
+		if (time < gamedata.bestTimeLv2) {
+			//stream << std::fixed << std::setprecision(2) << time;
+
+			gamedata.bestPlayersLv2 = gamedata.player1Name + " and " + gamedata.player2Name + " : " + stream.str();
+			gamedata.bestTimeLv2 = time;
+			GameManager::getInstance().saveData(gamedata);
+		}
 
 	}
 
@@ -440,6 +467,8 @@ void LevelTwo::Render(sf::RenderWindow& window)
 
 	water1->Draw(window);
 	lava1->Draw(window);
+
+	window.draw(timeText);
 
 	window.draw(pauseButton);
 

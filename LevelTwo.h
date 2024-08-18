@@ -39,6 +39,11 @@ private:
 
 	sf::Sprite bgSprite;
 
+	float time = 0.0f;
+
+	sf::Text timeText;
+	sf::Font minecraftFont;
+
 
 	//Sprite grassSprite;
 

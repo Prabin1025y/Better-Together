@@ -45,7 +45,7 @@ void Textbox::setFont(sf::Font& fonts) {
 
 void Textbox::setPosition(sf::Vector2f point) {
 	textbox.setPosition(point);
-	bg.setPosition(point);
+	bg.setPosition(point - sf::Vector2f(10,10));
 }
 
 void Textbox::setLimit(bool ToF) {

@@ -71,7 +71,7 @@ private:
 	float time = 0.0f;
 
 	sf::Text timeText;
-	sf::Font arialFont;
+	sf::Font minecraftFont;
 
 
 

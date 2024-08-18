@@ -7,7 +7,7 @@ private:
 	sf::Text Player1, Player2;
 	sf::RectangleShape bgCover;
 	sf::RectangleShape bg;
-	sf::RectangleShape restartButton;
+	sf::RectangleShape nextButton;
 	Textbox textBox1, textBox2;
 
 	sf::Font font;
@@ -15,7 +15,7 @@ private:
 public:
 	PlayerNameInput(sf::RenderWindow& window, sf::Texture* tileTexture);
 
-	sf::RectangleShape getRestartButton() { return restartButton; }
+	sf::RectangleShape getRestartButton() { return nextButton; }
 
 	void Draw(sf::RenderWindow& window, sf::Vector2f cameraPos);
 

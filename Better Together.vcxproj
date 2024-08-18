@@ -136,6 +136,7 @@
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Completed.cpp" />
     <ClCompile Include="Door.cpp" />
+    <ClCompile Include="GameData.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameOverMenu.cpp" />
     <ClCompile Include="LevelOne.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Completed.h" />
     <ClInclude Include="Door.h" />
+    <ClInclude Include="GameData.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameOverMenu.h" />
     <ClInclude Include="LevelOne.h" />

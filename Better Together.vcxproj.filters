@@ -90,6 +90,9 @@
     <ClCompile Include="PlayerNameInput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GameData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -162,6 +165,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PlayerNameInput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

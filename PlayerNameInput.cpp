@@ -5,7 +5,7 @@ PlayerNameInput::PlayerNameInput(sf::RenderWindow& window, sf::Texture* tileText
 	textBox2(24, sf::Color::White, false)
 {
 
-	font.loadFromFile("ARIAL.TTF");
+	font.loadFromFile("Minecraft.ttf");
 	bgCover.setSize(sf::Vector2f(window.getSize().x * 2, window.getSize().y * 2));
 	bgCover.setOrigin(bgCover.getSize() / 2.0f);
 	//bgCover.setPosition(sf::Vector2f(268.0f, 44.0f));
@@ -18,10 +18,10 @@ PlayerNameInput::PlayerNameInput(sf::RenderWindow& window, sf::Texture* tileText
 	bg.setTextureRect(sf::IntRect(15 * 16, 10 * 16, 5 * 16, 3 * 16));
 
 
-	restartButton.setPosition(-83.0f, 213.0f);
-	restartButton.setTexture(tileTexture);
-	restartButton.setTextureRect(sf::IntRect(0, 38 * 16, 2 * 16, 14));
-	restartButton.setSize(sf::Vector2f(192.0f, 84.0f));
+	nextButton.setPosition(-83.0f, 213.0f);
+	nextButton.setTexture(tileTexture);
+	nextButton.setTextureRect(sf::IntRect(2 * 16, 39 * 16, 2 * 16, 14));
+	nextButton.setSize(sf::Vector2f(192.0f, 84.0f));
 
 	Player1.setString("Player 1 Name:");
 	Player1.setFillColor(sf::Color::White);
@@ -57,5 +57,5 @@ void PlayerNameInput::Draw(sf::RenderWindow& window, sf::Vector2f cameraPos) {
 	textBox1.Draw(window);
 	textBox2.Draw(window);
 
-	window.draw(restartButton);
+	window.draw(nextButton);
 }

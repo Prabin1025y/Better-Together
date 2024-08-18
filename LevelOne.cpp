@@ -21,9 +21,9 @@ LevelOne::LevelOne(sf::RenderWindow& window) :
 	// fanTexture.loadFromFile("./images/Fan.png");
 	doortexture.loadFromFile("./images/door.png");
 	tiletexture.loadFromFile("./images/tiles.png");
-	arialFont.loadFromFile("ARIAL.TTF");
+	minecraftFont.loadFromFile("Minecraft.ttf");
 
-	timeText.setFont(arialFont);
+	timeText.setFont(minecraftFont);
 	timeText.setFillColor(sf::Color::Red);
 	timeText.setPosition(106, -396);
 	timeText.setStyle(sf::Text::Bold);
@@ -111,6 +111,7 @@ LevelOne::LevelOne(sf::RenderWindow& window) :
 }
 
 void LevelOne::Restart() {
+	time = 0.0f;
 	player1 = std::make_unique<Player>(&player1Texture, sf::Vector2u(8, 8), 0.15f, 100.0f, 150.0f, sf::Vector2f(-470.0f, 264.0f));
 	player2 = std::make_unique<Player2>(&player2Texture, sf::Vector2u(8, 8), 0.15f, 100.0f, 150.0f, sf::Vector2f(-470.0f, 25.0f));
 
@@ -135,6 +136,7 @@ void LevelOne::Restart() {
 
 	GameManager::getInstance().setIsGameOver(false);
 	GameManager::getInstance().setIsGamePaused(false);
+	GameManager::getInstance().setIsLevelCompleted(false);
 }
 
 void LevelOne::HandleInput(sf::RenderWindow& window)
@@ -225,6 +227,7 @@ void LevelOne::HandleInput(sf::RenderWindow& window)
 				if (GameManager::getInstance().getIsLevelCompleted()) {
 					if (completedMenu.getRestartButton().getGlobalBounds().contains(static_cast<sf::Vector2f>(worldPos))) {
 						//printf("Coming");
+
 						Restart();
 					}
 
@@ -258,8 +261,8 @@ void LevelOne::HandleInput(sf::RenderWindow& window)
 
 void LevelOne::Update(float deltaTime)
 {
-
-	time += deltaTime;
+	if (!door1->getIsDoorOpen())
+		time += deltaTime;
 
 	std::ostringstream stream;
 	stream << std::fixed << std::setprecision(2) << time;
@@ -372,6 +375,16 @@ void LevelOne::Update(float deltaTime)
 
 	if (door1->CheckCollision(playerCollider) && door1->CheckCollision(player2Collider)) {
 		door1->setIsDoorOpen(true);
+		GameData gamedata;
+		GameManager::getInstance().loadData(gamedata);
+		if (time < gamedata.bestTimeLv1) {
+			//stream << std::fixed << std::setprecision(2) << time;
+
+			gamedata.bestPlayersLv1 = gamedata.player1Name + " and " + gamedata.player2Name + " : " + stream.str();
+			//gamedata.bestPlayersLv1 = gamedata.player1Name + " and " + gamedata.player2Name + " : " + std::to_string(time);
+			gamedata.bestTimeLv1 = time;
+			GameManager::getInstance().saveData(gamedata);
+		}
 		//GameManager::getInstance().setIsLevelCompleted(true);
 	}
 
