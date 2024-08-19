@@ -131,14 +131,26 @@ void MainMenu::HandleInput(sf::RenderWindow& window)
 				if (isPlayerTyping) {
 
 					if (playerInput.getTextBox1().getTextBoxBg().getGlobalBounds().contains(static_cast<sf::Vector2f>(worldPos)))
+					{
 						playerInput.getTextBox1().setSelected(true);
+						GameManager::getInstance().playSound("click.wav");
+					}
 					else
+					{
 						playerInput.getTextBox1().setSelected(false);
+						GameManager::getInstance().playSound("click.wav");
+					}
 
 					if (playerInput.getTextBox2().getTextBoxBg().getGlobalBounds().contains(static_cast<sf::Vector2f>(worldPos)))
+					{
 						playerInput.getTextBox2().setSelected(true);
+						GameManager::getInstance().playSound("click.wav");
+					}
 					else
+					{
 						playerInput.getTextBox2().setSelected(false);
+						GameManager::getInstance().playSound("click.wav");
+					}
 
 					if (playerInput.getRestartButton().getGlobalBounds().contains(static_cast<sf::Vector2f>(worldPos)))
 					{
@@ -152,6 +164,7 @@ void MainMenu::HandleInput(sf::RenderWindow& window)
 						GameManager::getInstance().saveData(gameData);
 						currentPlayer1.setString(gameData.player1Name);
 						currentPlayer2.setString(gameData.player2Name);
+						GameManager::getInstance().playSound("click.wav");
 						isPlayerTyping = false;
 					}
 
@@ -162,17 +175,22 @@ void MainMenu::HandleInput(sf::RenderWindow& window)
 						window.close();
 
 					if (nameButton.getGlobalBounds().contains(static_cast<sf::Vector2f>(worldPos)))
+					{
 						isPlayerTyping = true;
+						GameManager::getInstance().playSound("click.wav");
+					}
 
 					if (lv1Button.getGlobalBounds().contains(static_cast<sf::Vector2f>(worldPos)))
 					{
 						printf("Level 1");
+						GameManager::getInstance().playSound("click.wav");
 						level = std::make_shared<LevelOne>(window);
 						SceneManager::getInstance().ChangeScene(level);
 					}
 					else if (lv2Button.getGlobalBounds().contains(static_cast<sf::Vector2f>(worldPos)))
 					{
 						printf("Level 2");
+						GameManager::getInstance().playSound("click.wav");
 						level = std::make_shared<LevelTwo>(window);
 						SceneManager::getInstance().ChangeScene(level);
 					}

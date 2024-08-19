@@ -24,8 +24,11 @@ Player::Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, 
 }
 
 void Player::death() {
-	if (canPerformAction)
+	GameManager::getInstance().track1.pause();
+	if (canPerformAction) {
+		GameManager::getInstance().playSound("gameover.wav");
 		animation->setCurrentImageX(0);
+	}
 	canPerformAction = false;
 	row = 6;
 	maxCol = 8;
@@ -45,6 +48,7 @@ void Player::Update(float deltaTime)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && canJump)
 	{
 		canJump = false;
+		GameManager::getInstance().playSound("jump1.wav");
 		velocity.y = -sqrtf(2.0f * 981.0f * jumpHeight);
 	}
 

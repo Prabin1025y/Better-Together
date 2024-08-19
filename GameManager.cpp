@@ -7,7 +7,7 @@ GameManager& GameManager::getInstance()
 }
 
 GameManager::GameManager() : isGameOver(false), pressedKey(sf::Keyboard::End), isGamePaused(false), isLevelCompleted(false) {
-
+	track1.setVolume(50);
 }
 
 
@@ -111,8 +111,18 @@ void GameManager::changeSong(std::string songName, bool loop)
 	track1.setLoop(loop);
 }
 
+void GameManager::playSound(std::string songName)
+{
+	sound.stop();
+	soundBuffer.loadFromFile(songName);
+	sound.setBuffer(soundBuffer);
+	sound.play();
+}
+
 GameManager::~GameManager() {
 	track1.stop();
+	sound.resetBuffer();
+	sound.stop();
 }
 
 // void GameManager::keyReleased(sf::Keyboard::Key key){

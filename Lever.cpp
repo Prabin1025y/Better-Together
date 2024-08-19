@@ -27,7 +27,7 @@ void Lever::Draw(sf::RenderWindow& window)
 
 void Lever::switchLever()
 {
-
+    GameManager::getInstance().playSound("lever.flac");
     isOn = !isOn;
     if (isOn)
     {

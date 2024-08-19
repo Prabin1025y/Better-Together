@@ -18,6 +18,7 @@ void Player2::Update(float deltaTime)
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && canJump)
     {
+        GameManager::getInstance().playSound("jump1.wav");
         canJump = false;
         velocity.y = -sqrtf(2.0f * 981.0f * jumpHeight);
     }

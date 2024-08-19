@@ -29,6 +29,9 @@ void Door::Update(float deltaTime)
 			GameManager::getInstance().setIsLevelCompleted(true);
 	}
 
+	if (animation.uvRect.left > 0 && animation.uvRect.left < 200)
+		GameManager::getInstance().playSound("levelCompleted.wav");
+
 	body.setTextureRect(animation.uvRect);
 
 

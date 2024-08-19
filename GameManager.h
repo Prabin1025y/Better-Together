@@ -28,6 +28,7 @@ public:
 	void saveData(GameData& gamedata);
 
 	void changeSong(std::string songName, bool loop);
+	void playSound(std::string songName);
 
 
 
@@ -52,6 +53,8 @@ private:
 	sf::Keyboard::Key pressedKey;
 	std::ofstream outF;
 	std::ifstream inF;
+	sf::SoundBuffer soundBuffer;
+	sf::Sound sound;
 	~GameManager();
 };
 

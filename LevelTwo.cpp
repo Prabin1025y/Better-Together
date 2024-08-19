@@ -29,7 +29,7 @@ LevelTwo::LevelTwo(sf::RenderWindow& window) :
 	timeText.setOutlineColor(sf::Color::Black);
 	timeText.setOutlineThickness(1);
 
-	pauseButton.setSize(sf::Vector2f(48.0f, 48.0f));
+	pauseButton.setSize(sf::Vector2f(60.0f, 60.0f));
 	pauseButton.setTexture(&tiletexture);
 	pauseButton.setTextureRect(sf::IntRect(2 * 16, 38 * 16, 16, 16));
 
@@ -98,6 +98,7 @@ LevelTwo::LevelTwo(sf::RenderWindow& window) :
 }
 
 void LevelTwo::Restart() {
+	GameManager::getInstance().track1.play();
 	time = 0.0f;
 	cameraPos = sf::Vector2f(233.0f, 100.0f);
 	/*player1 = std::make_unique<Player>(&player1Texture, sf::Vector2u(8, 8), 0.15f, 100.0f, 150.0f, sf::Vector2f(2290.0f, -227.0f));
@@ -171,12 +172,16 @@ void LevelTwo::HandleInput(sf::RenderWindow& window)
 				printf("%f, %f\n", worldPos.x, worldPos.y);
 
 				if (pauseButton.getGlobalBounds().contains(static_cast<sf::Vector2f>(worldPos)))
+				{
 					GameManager::getInstance().setIsGamePaused(true);
+					GameManager::getInstance().playSound("click.wav");
+				}
 
 				if (GameManager::getInstance().getIsGameOver()) {
 					if (gameOverMenu.getRestartButton().getGlobalBounds().contains(static_cast<sf::Vector2f>(worldPos))) {
 						printf("Coming");
 						Restart();
+						GameManager::getInstance().playSound("click.wav");
 					}
 
 					if (gameOverMenu.geteExitButton().getGlobalBounds().contains(static_cast<sf::Vector2f>(worldPos))) {
@@ -188,50 +193,58 @@ void LevelTwo::HandleInput(sf::RenderWindow& window)
 						GameManager::getInstance().setIsLevelCompleted(false);
 						std::shared_ptr<Scene> mainMenu = std::make_shared<MainMenu>(window);
 						SceneManager::getInstance().ChangeScene(mainMenu);
+						GameManager::getInstance().playSound("click.wav");
 					}
 				}
 				if (GameManager::getInstance().getIsGamePaused()) {
 					if (pauseMenu.getRestartButton().getGlobalBounds().contains(static_cast<sf::Vector2f>(worldPos))) {
-						printf("Coming");
+						GameManager::getInstance().track1.pause();
 						Restart();
+						GameManager::getInstance().playSound("click.wav");
 					}
 
 					if (pauseMenu.geteExitButton().getGlobalBounds().contains(static_cast<sf::Vector2f>(worldPos))) {
-						printf("Coming");
 						window.close();
+						GameManager::getInstance().playSound("click.wav");
 					}
 
 					if (pauseMenu.getResumeButton().getGlobalBounds().contains(static_cast<sf::Vector2f>(worldPos))) {
-						printf("Coming");
 						GameManager::getInstance().setIsGamePaused(false);
+						GameManager::getInstance().playSound("click.wav");
 					}
 
 					if (pauseMenu.getOptionButton().getGlobalBounds().contains(static_cast<sf::Vector2f>(worldPos))) {
 						GameManager::getInstance().setIsLevelCompleted(false);
 						std::shared_ptr<Scene> mainMenu = std::make_shared<MainMenu>(window);
 						SceneManager::getInstance().ChangeScene(mainMenu);
+						GameManager::getInstance().playSound("click.wav");
 					}
 
 				}
 				if (GameManager::getInstance().getIsLevelCompleted()) {
 					if (completedMenu.getRestartButton().getGlobalBounds().contains(static_cast<sf::Vector2f>(worldPos))) {
+						GameManager::getInstance().track1.pause();
 						Restart();
+						GameManager::getInstance().playSound("click.wav");
 					}
 
 					if (completedMenu.geteExitButton().getGlobalBounds().contains(static_cast<sf::Vector2f>(worldPos))) {
 						window.close();
+						GameManager::getInstance().playSound("click.wav");
 					}
 
 					if (completedMenu.getNextButton().getGlobalBounds().contains(static_cast<sf::Vector2f>(worldPos))) {
 						GameManager::getInstance().setIsLevelCompleted(false);
 						std::shared_ptr<Scene> levelOne = std::make_shared<LevelOne>(window);
 						SceneManager::getInstance().ChangeScene(levelOne);
+						GameManager::getInstance().playSound("click.wav");
 					}
 
 					if (completedMenu.getOptionButton().getGlobalBounds().contains(static_cast<sf::Vector2f>(worldPos))) {
 						GameManager::getInstance().setIsLevelCompleted(false);
 						std::shared_ptr<Scene> mainMenu = std::make_shared<MainMenu>(window);
 						SceneManager::getInstance().ChangeScene(mainMenu);
+						GameManager::getInstance().playSound("click.wav");
 					}
 				}
 			}
@@ -339,7 +352,10 @@ void LevelTwo::Update(float deltaTime)
 	}
 
 	if (player1->getPosition().y > 1000 || player2->getPosition().y > 1000)
+	{
+		GameManager::getInstance().playSound("gameover.wav");
 		GameManager::getInstance().setIsGameOver(true);
+	}
 
 	// if (lever1->CheckCollision(playerCollider) && GameManager::getInstance().GetKeyPressed(sf::Keyboard::E))
 	if ((lever1->CheckCollision(playerCollider) && GameManager::getInstance().GetKeyPressed(sf::Keyboard::S)) || ((lever1->CheckCollision(player2Collider) && GameManager::getInstance().GetKeyPressed(sf::Keyboard::Down))))
